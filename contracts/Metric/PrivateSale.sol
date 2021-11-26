@@ -3,11 +3,9 @@ pragma solidity >=0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PrivateSale is Ownable {
-    using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
     IERC20 public token;
@@ -49,8 +47,8 @@ contract PrivateSale is Ownable {
                 amount = remainingAmount;
             }
         }
-        remainingAmount = remainingAmount.sub(amount);
-        nextTimeRelease = nextTimeRelease.add(releasePeriod);
+        remainingAmount = remainingAmount - amount;
+        nextTimeRelease = nextTimeRelease + releasePeriod;
         token.safeTransfer(msg.sender, amount);
         emit ReleaseAllocation(msg.sender, amount, remainingAmount);
     }

@@ -3,11 +3,9 @@ pragma solidity >=0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract CompanyReserves is Ownable {
-    using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
     IERC20 public token;
@@ -34,9 +32,9 @@ contract CompanyReserves is Ownable {
         require(_amount <= remainingAmount, "Insufficient amount");
         require(remainingAmount > 0, "All tokens were released");
 
-        remainingAmount = remainingAmount.sub(_amount);
-        token.safeTransfer(msg.sender, amount);
-        emit ReleaseAllocation(msg.sender, amount, remainingAmount);
+        remainingAmount = remainingAmount - _amount;
+        token.safeTransfer(msg.sender, _amount);
+        emit ReleaseAllocation(msg.sender, _amount, remainingAmount);
     }
 
     function unlock() external onlyOwner {
