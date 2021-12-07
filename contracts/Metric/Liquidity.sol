@@ -12,9 +12,9 @@ contract Liquidity is Ownable {
 
     uint256 public constant totalAllocation = 150e6 * 1e18;
     uint256 public remainingAmount = 135e6 * 1e18;
-    uint256 public eachReleaseAmount = (totalAllocation * 15) / 100;
+    uint256 public constant eachReleaseAmount = (totalAllocation * 15) / 100;
     uint256 public nextTimeRelease = block.timestamp + 90 days;
-    uint256 public releasePeriod = 90 days;
+    uint256 public constant releasePeriod = 90 days;
     uint256 public lastTimeRelease = block.timestamp + 90 days + 450 days;
 
     event ReleaseAllocation(
@@ -27,7 +27,7 @@ contract Liquidity is Ownable {
         token = IERC20(_token);
     }
 
-    function balance() public view returns (uint256) {
+    function balance() external view returns (uint256) {
         return token.balanceOf(address(this));
     }
 
@@ -47,7 +47,7 @@ contract Liquidity is Ownable {
                 amount = remainingAmount;
             }
         }
-        remainingAmount = remainingAmount - amount ;
+        remainingAmount = remainingAmount - amount;
         nextTimeRelease = nextTimeRelease + releasePeriod;
         token.safeTransfer(msg.sender, amount);
         emit ReleaseAllocation(msg.sender, amount, remainingAmount);

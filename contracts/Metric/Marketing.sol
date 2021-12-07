@@ -12,9 +12,9 @@ contract Marketing is Ownable {
 
     uint256 public constant totalAllocation = 100e6 * 1e18;
     uint256 public remainingAmount = 100e6 * 1e18;
-    uint256 public eachReleaseAmount = (totalAllocation * 13) / 10000;
+    uint256 public constant eachReleaseAmount = (totalAllocation * 13) / 10000;
     uint256 public nextTimeRelease = block.timestamp + 7 days;
-    uint256 public releasePeriod = 1 days;
+    uint256 public constant releasePeriod = 1 days;
     uint256 public lastTimeRelease = block.timestamp + 7 days + 769 days;
 
     event ReleaseAllocation(
@@ -27,7 +27,7 @@ contract Marketing is Ownable {
         token = IERC20(_token);
     }
 
-    function balance() public view returns (uint256) {
+    function balance() external view returns (uint256) {
         return token.balanceOf(address(this));
     }
 

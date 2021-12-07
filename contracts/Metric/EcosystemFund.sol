@@ -12,8 +12,8 @@ contract EcosystemFund is Ownable {
 
     uint256 public constant totalAllocation = 250e6 * 1e18;
     uint256 public remainingAmount = 250e6 * 1e18;
-    uint256 public eachReleaseAmount = (totalAllocation * 5) / 100;
-    uint256 public releasePeriod = 30 days;
+    uint256 public constant eachReleaseAmount = (totalAllocation * 5) / 100;
+    uint256 public constant releasePeriod = 30 days;
     uint256 public nextTimeRelease = 0;
     uint256 public lastTimeRelease = 0;
 
@@ -32,7 +32,7 @@ contract EcosystemFund is Ownable {
         lastTimeRelease = block.timestamp + 600 days;
     }
 
-    function balance() public view returns (uint256) {
+    function balance() external view returns (uint256) {
         return token.balanceOf(address(this));
     }
 
