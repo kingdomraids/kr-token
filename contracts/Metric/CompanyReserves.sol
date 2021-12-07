@@ -13,6 +13,8 @@ contract CompanyReserves is Ownable {
     uint256 public remainingAmount = 110e6 * 1e18;
     bool public isLocked = true;
 
+    event Unlock();
+
     event ReleaseAllocation(
         address indexed to,
         uint256 releaseAmount,
@@ -38,6 +40,8 @@ contract CompanyReserves is Ownable {
     }
 
     function unlock() external onlyOwner {
+        require(isLocked, "Already unlocked");
         isLocked = false;
+        emit Unlock();
     }
 }
