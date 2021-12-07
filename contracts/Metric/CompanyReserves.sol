@@ -23,12 +23,12 @@ contract CompanyReserves is Ownable {
         token = IERC20(_token);
     }
 
-    function balance() public view returns (uint256) {
+    function balance() external view returns (uint256) {
         return token.balanceOf(address(this));
     }
 
     function release(uint256 _amount) external onlyOwner {
-        require(isLocked == false, "Please unlock first");
+        require(!isLocked, "Please unlock first");
         require(_amount <= remainingAmount, "Insufficient amount");
         require(remainingAmount > 0, "All tokens were released");
 

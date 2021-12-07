@@ -12,9 +12,9 @@ contract PrivateSale is Ownable {
 
     uint256 public constant totalAllocation = 70e6 * 1e18;
     uint256 public remainingAmount = 70e6 * 1e18;
-    uint256 public eachReleaseAmount = (totalAllocation * 18) / 10000;
+    uint256 public constant eachReleaseAmount = (totalAllocation * 18) / 10000;
     uint256 public nextTimeRelease = block.timestamp + 90 days;
-    uint256 public releasePeriod = 1 days;
+    uint256 public constant releasePeriod = 1 days;
     uint256 public lastTimeRelease = block.timestamp + 90 days + 555 days;
 
     event ReleaseAllocation(
@@ -27,7 +27,7 @@ contract PrivateSale is Ownable {
         token = IERC20(_token);
     }
 
-    function balance() public view returns (uint256) {
+    function balance() external view returns (uint256) {
         return token.balanceOf(address(this));
     }
 

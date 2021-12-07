@@ -12,9 +12,9 @@ contract Team is Ownable {
 
     uint256 public constant totalAllocation = 200e6 * 1e18;
     uint256 public remainingAmount = 200e6 * 1e18;
-    uint256 public eachReleaseAmount = (totalAllocation * 5) / 100;
+    uint256 public constant eachReleaseAmount = (totalAllocation * 5) / 100;
     uint256 public nextTimeRelease = block.timestamp + 360 days;
-    uint256 public releasePeriod = 30 days;
+    uint256 public constant releasePeriod = 30 days;
     uint256 public lastTimeRelease = block.timestamp + 360 days + 600 days;
 
     event ReleaseAllocation(
@@ -27,7 +27,7 @@ contract Team is Ownable {
         token = IERC20(_token);
     }
 
-    function balance() public view returns (uint256) {
+    function balance() external view returns (uint256) {
         return token.balanceOf(address(this));
     }
 
